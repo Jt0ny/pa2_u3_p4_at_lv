@@ -1,5 +1,7 @@
 package com.example.demo;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,34 +26,55 @@ public class Pa2U3P4AtLvApplication  implements CommandLineRunner{
 	@Override
 	public void run(String... args) throws Exception {
 		 
-		List<Hotel> listaHotel=this.hotelService.buscarInnerJoin();
-		for (Hotel h: listaHotel) {
+		List<Hotel>listaHotel =this.hotelService.buscarInnerJoin();
+		for(Hotel h:listaHotel) {
 			System.out.println(h.getNombre());
+			System.out.println("Tiene las siguientes habitaciones");
+			for(Habitacion ha:h.getHabitaciones()) {
+			System.out.println(ha.getNumero());	
+			}
 		}
-		
-		List<Hotel> listaHotel2=this.hotelService.buscarOuterRigthJoin();
-		for (Hotel h: listaHotel2) {
-			System.out.println(h);
-		}
-		
-		List<Habitacion> habitaciones=this.hotelService.buscarHabitacionOuterLeftJoin();
-		for (Habitacion ha: habitaciones) {
-			System.out.println(ha);
-		}
-		
-		List<Hotel> listaHotel4=this.hotelService.buscarOuterFulltJoin();
-		for (Hotel h: listaHotel4) {
-			if(h==null) {
-				System.out.println("No existe aun un hotel");
-			}else {
-				System.out.println(h.getNombre());
+		System.out.println("SQL Join Fetch");
+		List<Hotel>listaHotelF =this.hotelService.buscarJoinFetch();
+		for(Hotel h:listaHotelF) {
+			System.out.println(h.getNombre());
+			System.out.println("Fetch las siguientes habitaciones");
+			for(Habitacion ha:h.getHabitaciones()) {
+			System.out.println(ha.getNumero());	
 			}
 		}
 		
-		List<Hotel> listaHotel5=this.hotelService.buscarWhereJoin();
-		for (Hotel h: listaHotel5) {
-			System.out.println(h);
-		}
+		 Hotel ho=new Hotel();
+		 ho.setDireccion("sangol");
+		 ho.setNombre("Varadero");
+		
+	     Habitacion ha1=new Habitacion();
+	     ha1.setNumero("32");
+	     ha1.setValor(new BigDecimal(69));
+	     ha1.setHotel(ho);
+	     
+	     Habitacion ha2=new Habitacion();
+	     ha2.setNumero("89");
+	     ha2.setValor(new BigDecimal(78));
+	     ha2.setHotel(ho);
+	     
+	     Habitacion ha3=new Habitacion();
+	     ha3.setNumero("87");
+	     ha3.setValor(new BigDecimal(87));
+	     ha3.setHotel(ho);
+	     
+	     
+	     List<Habitacion> listaHabi=new ArrayList<>();
+	     listaHabi.add(ha1);
+	     listaHabi.add(ha2);
+	     listaHabi.add(ha3);
+	     
+	     ho.setHabitaciones(listaHabi);
+	     this.hotelService.guardar(ho);
+	     
+	     
+	
+	
 	}
 
 }

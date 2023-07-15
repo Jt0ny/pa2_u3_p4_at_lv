@@ -12,6 +12,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 
 @Entity
 @Table(name ="habitacion")
@@ -26,8 +27,12 @@ public class Habitacion {
 	
 	@Column(name = "habi_numero")
 	private String numero;
+	
 	@Column(name = "habi_valor")
 	private BigDecimal valor;
+	
+	@Transient//para un atributo que no se quiera mapear
+	private BigDecimal valorIncluidoIva;
 
 
 	@ManyToOne//(cascade = CascadeType.ALL) //>>>>>>>>> mmuchas habitaciones tiene un hotel
@@ -77,6 +82,16 @@ public class Habitacion {
 
 	public void setHotel(Hotel hotel) {
 		this.hotel = hotel;
+	}
+
+
+	public BigDecimal getValorIncluidoIva() {
+		return valorIncluidoIva;
+	}
+
+
+	public void setValorIncluidoIva(BigDecimal valorIncluidoIva) {
+		this.valorIncluidoIva = valorIncluidoIva;
 	}
 
 

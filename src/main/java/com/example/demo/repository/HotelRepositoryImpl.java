@@ -23,8 +23,12 @@ public class HotelRepositoryImpl implements HotelRepository {
 		// /select * from hotel h inner join habitacion ha on h.hot_id=ha.habi_id_hotel 
 		//SELECT h from hotel h JOIN h.habitaciones ha 
 		TypedQuery<Hotel>myQuery=this.entityManager.createQuery("SELECT h from Hotel h INNER JOIN h.habitaciones ha", Hotel.class);
-		
-		return myQuery.getResultList();
+		List<Hotel>listaHoteles=myQuery.getResultList();
+		for(Hotel h:listaHoteles) {
+			h.getHabitaciones().size();
+			
+		}
+		return listaHoteles;
 	}
 
 	@Override
@@ -62,6 +66,18 @@ public class HotelRepositoryImpl implements HotelRepository {
 		TypedQuery<Hotel>myQuery=this.entityManager.createQuery("SELECT h FROM Hotel h , Habitacion ha WHERE h=ha.hotel", Hotel.class);
 		
 		return myQuery.getResultList();
+	}
+
+	@Override
+	public List<Hotel> seleccionarFetchJoin() {
+		TypedQuery<Hotel>myQuery=this.entityManager.createQuery("SELECT h from Hotel h  JOIN FETCH h.habitaciones ha", Hotel.class);
+		return myQuery.getResultList();
+	}
+
+	@Override
+	public void insertar(Hotel hotel) {
+	this.entityManager.persist(hotel);
+		
 	}
 
 }
