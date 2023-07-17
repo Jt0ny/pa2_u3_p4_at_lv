@@ -25,6 +25,9 @@ public interface ArtistaRepository {
 	public List<Artista> seleccionarArtistasWhereJoin();
 	public List<Cancion> seleccionarCancionesWhereJoin();
 	
+	public List<Artista> seleccionarArtistaFetchJoin();
+	public List<Cancion> seleccionarCancionFetchJoin();
+	
 
 
 }

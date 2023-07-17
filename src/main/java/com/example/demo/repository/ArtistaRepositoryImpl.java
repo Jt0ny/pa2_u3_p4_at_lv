@@ -78,7 +78,7 @@ public class ArtistaRepositoryImpl implements ArtistaRepository{
 		return myQuery.getResultList();
 	}
 
-	//WHERE
+	// JOIN WHERE
 	@Override
 	public List<Artista> seleccionarArtistasWhereJoin() {
 		TypedQuery<Artista>myQuery=this.entityManager.createQuery("SELECT a FROM Artista a , Cancion ca WHERE a=ca.artista", Artista.class);
@@ -90,7 +90,18 @@ public class ArtistaRepositoryImpl implements ArtistaRepository{
 		TypedQuery<Cancion>myQuery=this.entityManager.createQuery("SELECT ca FROM Artista a , Cancion ca WHERE a=ca.artista", Cancion.class);
 		return myQuery.getResultList();
 	}
+	// JOIN FECTH
+	@Override
+	public List<Artista> seleccionarArtistaFetchJoin() {
+		TypedQuery<Artista>myQuery=this.entityManager.createQuery("SELECT a FROM Artista a  JOIN FETCH a.canciones ca", Artista.class);
+		return myQuery.getResultList();
+	}
 
+	@Override
+	public List<Cancion> seleccionarCancionFetchJoin() {
+		TypedQuery<Cancion>myQuery=this.entityManager.createQuery("SELECT ca FROM Cancion ca  JOIN FETCH ca.artista a ", Cancion.class);
+		return myQuery.getResultList();
+	}
 
 
 }

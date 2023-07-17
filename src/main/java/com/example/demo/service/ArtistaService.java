@@ -23,5 +23,8 @@ public interface ArtistaService {
 	
 	public List<Artista> buscarArtistasWhereJoin();
 	public List<Cancion> buscarCancionesWhereJoin();
+	
+	public List<Artista> buscarArtistaFetchJoin();
+	public List<Cancion> buscarCancionFetchJoin();
 
 }

@@ -80,4 +80,15 @@ public class ArtistaServiceImpl implements ArtistaService{
 		return this.artistaRepository.seleccionarCancionesWhereJoin();
 	}
 
+	@Override
+	public List<Artista> buscarArtistaFetchJoin() {
+		
+		return this.artistaRepository.seleccionarArtistaFetchJoin();
+	}
+
+	@Override
+	public List<Cancion> buscarCancionFetchJoin() {
+		return this.artistaRepository.seleccionarCancionFetchJoin();
+	}
+
 }
