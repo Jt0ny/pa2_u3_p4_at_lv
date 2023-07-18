@@ -24,12 +24,7 @@ import com.example.demo.service.TransferenciaService;
 @SpringBootApplication
 public class Pa2U3P4AtLvApplication  implements CommandLineRunner{
 
-	@Autowired
-	private TransferenciaService transferenciaService;
-	@Autowired
-	private CuentaBancariaService cuentaBancariaService;
-	@Autowired
-	private PropietarioService propietarioService;
+	
 	
 	public static void main(String[] args) {
 		SpringApplication.run(Pa2U3P4AtLvApplication.class, args);
@@ -37,42 +32,6 @@ public class Pa2U3P4AtLvApplication  implements CommandLineRunner{
 
 	@Override
 	public void run(String... args) throws Exception {
-		
-		Propietario p1 =new Propietario();
-		p1.setNombre("Anthony");
-		p1.setApellido("Tipan");
-		p1.setCedula("1726");
-		this.propietarioService.guardar(p1);
-	
-		CuentaBancaria c1= new CuentaBancaria();
-		c1.setNumero("100");
-		c1.setPropietario(p1);
-		c1.setSaldo(new BigDecimal(700));
-		c1.setTipo("Ahorros");
-		this.cuentaBancariaService.guardar(c1);
-		//
-		Propietario p2 = new Propietario();
-		p2.setNombre("Luis");
-		p2.setApellido("Valladares");
-		p2.setCedula("1412");
-		this.propietarioService.guardar(p2);
-		
-		CuentaBancaria c2= new CuentaBancaria ();
-		c2.setNumero("101");
-		c2.setPropietario(p2);
-		c2.setSaldo(new BigDecimal(800));
-		c2.setTipo("Ahorros");
-		this.cuentaBancariaService.guardar(c2);
-		
-		//Transferencia
-		this.transferenciaService.realizarTransferencia(c1.getNumero(), c2.getNumero(), new BigDecimal(100));
-	
-		
-		System.out.println("Reporte de transferencias");
-		List<Transferencia>reporte= this.transferenciaService.buscarTodos();
-		for(Transferencia tran:reporte) {
-			System.out.println(tran);
-		}
 		
 		
 		
