@@ -3,6 +3,7 @@ package com.example.demo.repository.modelo;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -32,11 +33,11 @@ public class Matricula {
 	@Column(name = "matr_fecha")
 	private LocalDate fecha;
 	
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "matr_id_estu")
 	private Estudiante estudiante;
 	
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "mate_id_estu")
 	private Materia materia;
 

@@ -24,8 +24,14 @@ public class MateriaRepositoryImpl implements MateriaRepository {
 	}
 	@Override
 	public List<String> seleccionarTodos() {
-		TypedQuery<String> myquery = this.entityManager.createQuery("SELECT m FROM Materia m ", String.class);
+		TypedQuery<String> myquery = this.entityManager.createQuery("SELECT m.codigo FROM Materia m ", String.class);
 		return myquery.getResultList();
+	}
+	@Override
+	public Materia seleccionarPorCodigo(String codigo) {
+		TypedQuery<Materia> myquery = this.entityManager.createQuery("SELECT m FROM Matricula m WHERE m.codigo = :datoCodigo ", Materia.class);
+		myquery.setParameter("datoCodigo", codigo);
+		return myquery.getSingleResult();
 	}
 
 }

@@ -7,5 +7,5 @@ import com.example.demo.repository.modelo.Matricula;
 
 public interface MatriculaService {
 
-	public void guardar (String cedula, List<String> codigoM);
+	public void guardar (String cedula, List<String> codigosM);
 }

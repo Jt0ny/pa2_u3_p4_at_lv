@@ -9,5 +9,7 @@ public interface MateriaRepository {
 	public void insetar(Materia materia);
 	
 	public List<String> seleccionarTodos();
+	
+	public Materia seleccionarPorCodigo(String codigo);
 
 }
