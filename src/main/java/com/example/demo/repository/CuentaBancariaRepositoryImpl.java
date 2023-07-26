@@ -18,12 +18,14 @@ public class CuentaBancariaRepositoryImpl  implements CuentaBancariaRepository{
 	private EntityManager entityManager;
 	
 	@Override
+	@Transactional(value = TxType.MANDATORY)
 	public void insertar(CuentaBancaria ctaBancaria) {
 		this.entityManager.persist(ctaBancaria);
 		
 	}
 
 	@Override
+	@Transactional(value = TxType.NOT_SUPPORTED)
 	public CuentaBancaria seleccionar(String numero) {
 		
 		TypedQuery<CuentaBancaria> myquery = this.entityManager.createQuery("SELECT c FROM CuentaBancaria c WHERE c.numero = :datoNumero", CuentaBancaria.class);
@@ -33,7 +35,7 @@ public class CuentaBancariaRepositoryImpl  implements CuentaBancariaRepository{
 	}
 
 	@Override
-	@Transactional(value = TxType.REQUIRED)
+	@Transactional(value = TxType.MANDATORY)
 	public void actualizar(CuentaBancaria ctaBancaria) {
 		this.entityManager.merge(ctaBancaria);
 		
