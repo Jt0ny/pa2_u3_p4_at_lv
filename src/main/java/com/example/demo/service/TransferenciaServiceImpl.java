@@ -11,6 +11,9 @@ import com.example.demo.repository.CuentaBancariaRepository;
 import com.example.demo.repository.TransferenciaRepository;
 import com.example.demo.repository.modelo.CuentaBancaria;
 import com.example.demo.repository.modelo.Transferencia;
+
+import jakarta.transaction.Transactional;
+import jakarta.transaction.Transactional.TxType;
 @Service
 public class TransferenciaServiceImpl implements TransferenciaService{
 
@@ -18,7 +21,9 @@ public class TransferenciaServiceImpl implements TransferenciaService{
 	private TransferenciaRepository transferenciaRepository;
 	@Autowired
 	private CuentaBancariaRepository cuentaBancariaRepository;
+	
 	@Override
+	@Transactional(value = TxType.REQUIRED)
 	public void realizarTransferencia(String numOrigen, String numDestino, BigDecimal monto) {
 		CuentaBancaria ctaBancariaOrigen = this.cuentaBancariaRepository.seleccionar(numOrigen);
 		CuentaBancaria ctaBancariaDestino = this.cuentaBancariaRepository.seleccionar(numDestino);
@@ -39,6 +44,12 @@ public class TransferenciaServiceImpl implements TransferenciaService{
 			this.cuentaBancariaRepository.actualizar(ctaBancariaOrigen);
 			this.cuentaBancariaRepository.actualizar(ctaBancariaDestino);
 			this.transferenciaRepository.insertar(transferencia);
+			BigDecimal a=new BigDecimal(0);
+			if(ctaBancariaOrigen.getSaldo().compareTo(a)==-1) {
+				System.out.println("El valor de la cuenta origen llego a cero, no se puede realizar la transferencia ");
+				throw new RuntimeException();
+			}
+			//throw new RuntimeException();
 
 		} else {
 			System.out.println("No se pudo hacer la transferencia");

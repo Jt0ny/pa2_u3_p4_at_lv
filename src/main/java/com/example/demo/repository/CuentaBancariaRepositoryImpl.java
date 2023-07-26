@@ -9,6 +9,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;
 import jakarta.transaction.Transactional;
+import jakarta.transaction.Transactional.TxType;
 @Repository
 @Transactional
 public class CuentaBancariaRepositoryImpl  implements CuentaBancariaRepository{
@@ -32,6 +33,7 @@ public class CuentaBancariaRepositoryImpl  implements CuentaBancariaRepository{
 	}
 
 	@Override
+	@Transactional(value = TxType.REQUIRED)
 	public void actualizar(CuentaBancaria ctaBancaria) {
 		this.entityManager.merge(ctaBancaria);
 		
