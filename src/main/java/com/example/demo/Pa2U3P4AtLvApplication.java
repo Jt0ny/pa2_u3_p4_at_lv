@@ -17,12 +17,9 @@ import com.example.demo.service.TransferenciaService;
 @SpringBootApplication
 public class Pa2U3P4AtLvApplication  implements CommandLineRunner{
 
-	@Autowired
-	private TransferenciaService transferenciaService;
+	
 	@Autowired
 	private CuentaBancariaService cuentaBancariaService;
-	@Autowired
-	private PropietarioService propietarioService;
 	
 	
 	public static void main(String[] args) {
@@ -34,24 +31,24 @@ public class Pa2U3P4AtLvApplication  implements CommandLineRunner{
 		
 		System.out.println("main:"+TransactionSynchronizationManager.isActualTransactionActive());
 		
-	/*	CuentaBancaria c1= new CuentaBancaria();
-		c1.setNumero("10");
+		CuentaBancaria cue= new CuentaBancaria();
+		cue.setNumero("1017");
 		//c1.setPropietario(p1);
-		c1.setSaldo(new BigDecimal(700));
-		c1.setTipo("Ahorros");
-		this.cuentaBancariaService.guardar(c1);
-		//
+		cue.setSaldo(new BigDecimal(700));
+		cue.setTipo("Ahorros");
+		this.cuentaBancariaService.guardar(cue);
+		
 
 		CuentaBancaria c2= new CuentaBancaria ();
-		c2.setNumero("18");
+		c2.setNumero("180");
 		//c2.setPropietario(p2);
 		c2.setSaldo(new BigDecimal(800));
 		c2.setTipo("Ahorros");
-		this.cuentaBancariaService.guardar(c2);*/
+		this.cuentaBancariaService.guardar(c2);
 
 		//Transferencia
-		//this.transferenciaService.realizarTransferencia("10", "18", new BigDecimal(100));
-		this.transferenciaService.realizarTransferencia("10", "18", new BigDecimal(440));
+		this.transferenciaService.realizarTransferencia("1017", "180", new BigDecimal(100));
+		//this.transferenciaService.realizarTransferencia("10", "18", new BigDecimal(440));
 
 
 		 

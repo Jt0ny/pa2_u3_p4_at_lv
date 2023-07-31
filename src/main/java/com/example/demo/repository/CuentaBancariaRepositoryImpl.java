@@ -18,7 +18,7 @@ public class CuentaBancariaRepositoryImpl  implements CuentaBancariaRepository{
 	private EntityManager entityManager;
 	
 	@Override
-	@Transactional(value = TxType.MANDATORY)
+	@Transactional(value = TxType.REQUIRED)
 	public void insertar(CuentaBancaria ctaBancaria) {
 		this.entityManager.persist(ctaBancaria);
 		
@@ -35,7 +35,7 @@ public class CuentaBancariaRepositoryImpl  implements CuentaBancariaRepository{
 	}
 
 	@Override
-	@Transactional(value = TxType.MANDATORY)
+	@Transactional(value = TxType.REQUIRED)
 	public void actualizar(CuentaBancaria ctaBancaria) {
 		this.entityManager.merge(ctaBancaria);
 		
