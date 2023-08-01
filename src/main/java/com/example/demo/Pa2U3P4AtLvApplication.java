@@ -47,7 +47,7 @@ public class Pa2U3P4AtLvApplication  implements CommandLineRunner{
 		this.cuentaBancariaService.guardar(c2);
 
 		//Transferencia
-		this.transferenciaService.realizarTransferencia("1017", "180", new BigDecimal(100));
+		//this.transferenciaService.realizarTransferencia("1017", "180", new BigDecimal(100));
 		//this.transferenciaService.realizarTransferencia("10", "18", new BigDecimal(440));
 
 
