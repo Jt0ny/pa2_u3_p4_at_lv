@@ -24,4 +24,13 @@ public class MetodosReferenciados {
 		}
 			
 	};
+	
+	public String aplicar(Integer arg) {
+		String cadena = arg.toString().concat("Numero transformado a String");
+		return cadena;
+	}
+	public Integer aplicar2( Integer arg) {
+		Integer suma= 10+arg;
+	 return suma;	
+	}
 }
