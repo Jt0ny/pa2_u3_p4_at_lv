@@ -6,7 +6,7 @@ import org.slf4j.LoggerFactory;
 public class MetodosReferenciados {
 	
 	private static final Logger LOG= LoggerFactory.getLogger(Main.class);
-	/*
+	
 	//supplier
 	public static Integer getID() {
 		return 8;
@@ -39,13 +39,17 @@ public class MetodosReferenciados {
 		Integer suma= 10+arg;
 	 return suma;	
 	}
+	public static String unary( String arg) {
+		String union="UNARY".concat(arg);
+	 return union;	
+	}
 	
 	public static String getIDHO() {
 		LOG.info("Metodos referenciados y HO");
 		return "Anthony Tipan";
-	}*/
+	}
 	
-	//Metodos del deber 16
+	/*//Metodos del deber 16
 	//SUPPLIER
 		public static String metodoS() {
 			return "Ejemplo Supplier";
@@ -79,6 +83,6 @@ public class MetodosReferenciados {
 		public static Integer metodoU(Integer arg) {
 			Integer sum=arg+10;
 			return sum;
-		}
+		}*/
 
 }

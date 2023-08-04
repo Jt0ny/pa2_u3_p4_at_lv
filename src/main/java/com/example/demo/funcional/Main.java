@@ -13,16 +13,15 @@ public class Main {
 
 	public static void main(String[] args) {
 		
-	/*	Persona per = new PersonaImpl();
+		Persona per = new PersonaImpl();
 		per.caminar();
 
-		//1.- SUPPLIER
-		//Clases:
+	//1.- SUPPLIER
+		//1.Clases:
 		IPersonaSupplier<String> supplier1= new PersonaSupplierImpl();
 		//buena practica para imprimir es un loger (slf4j)
 		LOG.info("Supplier clase:"+supplier1.getID() );
-
-		//Lambdas:
+		//2.Lambdas:
 		IPersonaSupplier<String> supplier2 = () ->  "17239737966";
 		LOG.info("Supplier lambda:"+supplier2.getID() );
 
@@ -33,19 +32,19 @@ public class Main {
 		};
 		LOG.info("Supplier lambda 2:"+supplier3.getID() );	
 		
-		//Metodos Referenciados
+		//3.Metodos Referenciados
 		MetodosReferenciados metodos=new MetodosReferenciados();
 		IPersonaSupplier<Integer> supplier4=MetodosReferenciados::getID;
 		LOG.info("Supplier metodo referenciado:"+supplier4.getID() );	
 		
-		//2. CONSUMER
+	//2. CONSUMER
 		
-		//Clases
+		//1.Clases
 		IPersonaConsumer<String > consumer1=new PersonaConsumerImpl();
 		LOG.info("Consumer clase:");
 		consumer1.accept("Anthony Tipan");
 		
-		//Lambdas
+		//2.Lambdas
 		IPersonaConsumer<String> consumer2=cadena->{
 			LOG.info("1");
 			LOG.info("2");
@@ -54,13 +53,16 @@ public class Main {
 		LOG.info("Consumer Lambda:");
 		consumer2.accept("Anthony Tipan2");
 		
-		//Metodos Referenciados
+		//3.Metodos Referenciados
 		IPersonaConsumer<String>consumer3=MetodosReferenciados::aceptar;
 		LOG.info("Consumer metodos referenciados:");
 		consumer3.accept("Anthony Tipan2");
 		
-		//3.Predicate
-		//Lambdas
+	//3.Predicate
+		//1.Clase
+		IPersonaPredicate<Integer>predicate= new PersonaPredicateImpl();
+		LOG.debug("Predicate clase:"+predicate.evaluar(8));
+		//2.Lambdas
 		IPersonaPredicate<Integer>predicate1=valor -> valor.compareTo(8)==0;
 		LOG.info("Predicate lambda:"+predicate1.evaluar(8));
 
@@ -81,13 +83,17 @@ public class Main {
 		IPersonaBIPredicate<String,String>predicate4=(caracter,cadena) ->cadena.contains(caracter);
 		LOG.info("Predicate lambda4:"+predicate4.evaluar("y","Anthony"));
 		
-		//Metodos Referenciados
+		//3.Metodos Referenciados
 		
 		IPersonaPredicate<Integer>predicate5=MetodosReferenciados::evaluar;
 		LOG.info("Predicate metodos referenciados:"+predicate5.evaluar(2));
 		
-		//3.Function
-		
+	//4.Function
+		//1.Clase
+		IPersonaFunction<String, Integer>fun=new PersonaFunctionImpl();
+		LOG.debug("Function clase:"+fun.aplicar(9));
+
+		//2.Lambda
 		IPersonaFunction<String, Integer> function=numero->numero.toString();
 		LOG.info("Function lambda1:"+function.aplicar(8));
 		
@@ -102,20 +108,26 @@ public class Main {
 		LOG.info("Function metodos referenciados:"+function2.aplicar(85));
 		
 		
-		//5.UnaryOperator
+	//5.UnaryOperator
+		//1.Clase
+		IPersonaUnary<String>una=new PersonaUnaryImpl();
+		LOG.debug("Unary Clase:"+una.aplicar("ANTHONY"));
+		
+		//2.Lambda
 		IPersonaUnary<Integer>unary=numero->numero+(numero*2);
 		LOG.info("Unary lambda:"+unary.aplicar(3));
 		
 		IPersonaUnaryFunction<Integer>unary2=numero->numero+(numero*2);
 		LOG.info("Unary lambda2:"+unary2.aplicar(3));
 		
-		//Metodos Referenciados
+		//3.Metodos Referenciados
 		IPersonaUnary<Integer>unary3=MetodosReferenciados::aplicar2;
 		LOG.info("Unary metodos referenciados:"+unary3.aplicar(100));
 		
 		//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-		//Metodos High Order
+	//Metodos High Order
 		MetodosHighOrder highOrder=new MetodosHighOrder();
+		
 		//supplier
 		//1.Clase
 		IPersonaSupplier<String> supplierHO= new PersonaSupplierImpl();
@@ -136,6 +148,45 @@ public class Main {
 		},"Lambdas Consumer");
 		//3.Metodos referenciados
 		highOrder.metodo2(MetodosReferenciados::aceptar,"Metodos referenciados Consumer");
+		
+		//Predicate
+		//1.Clase
+		highOrder.metodo3(new PersonaPredicateImpl(), 8);
+		//2.Lambdas
+		highOrder.metodo3(arg -> {
+			LOG.info("Lambda: ");
+			if (arg >= 20) {
+				return true;
+			} else {
+				return false;
+			}
+		}, 78);
+		//3.Metodos Referenciados
+		highOrder.metodo3(MetodosReferenciados::evaluar, 8);
+		
+		//Function
+		//1.Clase
+		highOrder.metodo4(new PersonaFunctionImpl(),9 );
+		//2.Lambda
+		highOrder.metodo4(arg -> {
+			Double valorAux = arg* 0.6;
+			return "valor lambda: " + valorAux.toString();
+		}, 10);
+		//3.Metodos Referenciados
+		highOrder.metodo4(MetodosReferenciados::aplicar, 7);
+		
+		//Unary
+		//1.Clase
+		highOrder.metodo5(new PersonaUnaryImpl(), "Anthony");
+		//2.Lambda 
+		highOrder.metodo5(x -> {
+			LOG.info("Lambda: ");
+			String cadena = x.concat("test");
+			return cadena;
+		}, "Tony");
+		//3.Metodos Referenciados
+		highOrder.metodo5(MetodosReferenciados::unary, "Joel");
+		
 		
 		//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 		//Interfaces Funcionales JAVA
@@ -167,31 +218,8 @@ public class Main {
 			num=numero+num;
 			return num;
 			});
-		listaCambiada2.forEach(cadena->LOG.info(cadena.toString()));*/
+		listaCambiada2.forEach(cadena->LOG.info(cadena.toString()));
 		
-		//Tarea 16
-		//Supplier
-		MetodosReferenciados metodos=new MetodosReferenciados();
-		IPersonaSupplier<String> supplier=MetodosReferenciados::metodoS;
-		LOG.info("Supplier metodo referenciado:");	
-		
-		//Consumer
-		IPersonaConsumer<Integer> consumer=MetodosReferenciados::metodoC;
-		LOG.debug("Consumer metodo referenciado:");
-		consumer.accept(8);
-		
-		//Predicate
-		IPersonaPredicate<Integer> predicate =MetodosReferenciados::metodoP;
-		LOG.debug("Predicate metodo referenciado:"+predicate.evaluar(2));
-		
-		//Function
-		IPersonaFunction<String, Integer> function=MetodosReferenciados::metodoF;
-		LOG.debug("Funcion metodo referenciado:"+ function.aplicar(8));
-		
-		//Unary
-		IPersonaUnary<Integer>unary=MetodosReferenciados::metodoU;
-		LOG.debug("Unary metodo referenciado:"+unary.aplicar(9));
-
 
 
 
