@@ -13,7 +13,7 @@ public class Main {
 
 	public static void main(String[] args) {
 		
-		Persona per = new PersonaImpl();
+	/*	Persona per = new PersonaImpl();
 		per.caminar();
 
 		//1.- SUPPLIER
@@ -83,7 +83,7 @@ public class Main {
 		
 		//Metodos Referenciados
 		
-		IPersonaPredicate<Integer>predicate5=metodos::evaluar;
+		IPersonaPredicate<Integer>predicate5=MetodosReferenciados::evaluar;
 		LOG.info("Predicate metodos referenciados:"+predicate5.evaluar(2));
 		
 		//3.Function
@@ -98,7 +98,7 @@ public class Main {
 		LOG.info("Function lambda2:"+function1.aplicar(10));
 		
 		//Metodos Referenciados
-		IPersonaFunction<String, Integer> function2=metodos::aplicar;
+		IPersonaFunction<String, Integer> function2=MetodosReferenciados::aplicar;
 		LOG.info("Function metodos referenciados:"+function2.aplicar(85));
 		
 		
@@ -110,12 +110,13 @@ public class Main {
 		LOG.info("Unary lambda2:"+unary2.aplicar(3));
 		
 		//Metodos Referenciados
-		IPersonaUnary<Integer>unary3=metodos::aplicar2;
+		IPersonaUnary<Integer>unary3=MetodosReferenciados::aplicar2;
 		LOG.info("Unary metodos referenciados:"+unary3.aplicar(100));
 		
 		//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 		//Metodos High Order
 		MetodosHighOrder highOrder=new MetodosHighOrder();
+		//supplier
 		//1.Clase
 		IPersonaSupplier<String> supplierHO= new PersonaSupplierImpl();
 		highOrder.metodo(supplierHO);
@@ -166,8 +167,35 @@ public class Main {
 			num=numero+num;
 			return num;
 			});
-		listaCambiada2.forEach(cadena->LOG.info(cadena.toString()));
+		listaCambiada2.forEach(cadena->LOG.info(cadena.toString()));*/
 		
+		//Tarea 16
+		//Supplier
+		MetodosReferenciados metodos=new MetodosReferenciados();
+		IPersonaSupplier<String> supplier=MetodosReferenciados::metodoS;
+		LOG.info("Supplier metodo referenciado:");	
+		
+		//Consumer
+		IPersonaConsumer<Integer> consumer=MetodosReferenciados::metodoC;
+		LOG.debug("Consumer metodo referenciado:");
+		consumer.accept(8);
+		
+		//Predicate
+		IPersonaPredicate<Integer> predicate =MetodosReferenciados::metodoP;
+		LOG.debug("Predicate metodo referenciado:"+predicate.evaluar(2));
+		
+		//Function
+		IPersonaFunction<String, Integer> function=MetodosReferenciados::metodoF;
+		LOG.debug("Funcion metodo referenciado:"+ function.aplicar(8));
+		
+		//Unary
+		IPersonaUnary<Integer>unary=MetodosReferenciados::metodoU;
+		LOG.debug("Unary metodo referenciado:"+unary.aplicar(9));
+
+
+
+
 	
 	
-	}}
+		}
+	}
