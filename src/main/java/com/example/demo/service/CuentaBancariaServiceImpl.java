@@ -1,8 +1,10 @@
 package com.example.demo.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
 
 import org.slf4j.Logger;
@@ -53,6 +55,36 @@ public class CuentaBancariaServiceImpl implements CuentaBancariaService{
 	public void actualizar(CuentaBancaria ctaBancaria) {
 		this.cuentaBancariaRepository.actualizar(ctaBancaria);
 		
+	}
+	@Override
+	@Async
+	public void agregarAsincrono(CuentaBancaria cuentaBancaria) {
+		LOG.info("Hilo service:"+Thread.currentThread().getName());
+		// sumar restar multiplicador ; logica que demora 1 segundo
+		try {
+			TimeUnit.SECONDS.sleep(1);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		this.cuentaBancariaRepository.insertar(cuentaBancaria);;
+	//	return cuentaBancaria.getNumero();
+		
+	}
+	@Override
+	@Async
+	//que se completa el retorno en un futuro
+	public CompletableFuture<String> agregarAsincrono2(CuentaBancaria cuentaBancaria) {
+		LOG.info("Hilo service:"+Thread.currentThread().getName());
+		// sumar restar multiplicador ; logica que demora 1 segundo
+		try {
+			TimeUnit.SECONDS.sleep(1);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		this.cuentaBancariaRepository.insertar(cuentaBancaria);;
+		return CompletableFuture.completedFuture(cuentaBancaria.getNumero());
 	}
 
 	
